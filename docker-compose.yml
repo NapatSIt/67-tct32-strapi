@@ -2,24 +2,30 @@ version: '3'
 
 services:
   app:
+    build: .
     image: napat/app:1.0.0
     container_name: tct-app-strapi
+    restart: always
     ports:
-      - 11337:1337
+      - ${APP_PORT}
     environment:
       - DATABASE_CLIENT=postgres
-      - DATABASE_HOST=db
+      - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USERNAME=${DATABASE_USERNAME}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_SSL=${DATABASE_SSL}
+    depends_on:
+      - db
+    
     
   db:
     image: postgres
     container_name: tct-app-postgres
+    restart: always
     ports:
-      - 54301:5432
+      - ${DB_PORT}
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_USER=${POSTGRES_USER}
