@@ -15,6 +15,12 @@
     "name": {
       "type": "string",
       "required": true
+    },
+    "class_rooms": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::class-room.class-room",
+      "mappedBy": "students"
     }
   }
 }

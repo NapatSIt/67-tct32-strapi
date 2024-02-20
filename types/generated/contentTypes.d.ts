@@ -787,6 +787,7 @@ export interface ApiClassRoomClassRoom extends Schema.CollectionType {
     singularName: 'class-room';
     pluralName: 'class-rooms';
     displayName: 'Class Room';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -796,6 +797,11 @@ export interface ApiClassRoomClassRoom extends Schema.CollectionType {
       'api::class-room.class-room',
       'manyToOne',
       'api::teacher.teacher'
+    >;
+    students: Attribute.Relation<
+      'api::class-room.class-room',
+      'manyToMany',
+      'api::student.student'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -849,6 +855,11 @@ export interface ApiStudentStudent extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
+    class_rooms: Attribute.Relation<
+      'api::student.student',
+      'manyToMany',
+      'api::class-room.class-room'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
