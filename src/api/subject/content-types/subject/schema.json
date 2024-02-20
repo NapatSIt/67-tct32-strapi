@@ -1,11 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "students",
+  "collectionName": "subjects",
   "info": {
-    "singularName": "student",
-    "pluralName": "students",
-    "displayName": "Student",
-    "description": ""
+    "singularName": "subject",
+    "pluralName": "subjects",
+    "displayName": "Subject"
   },
   "options": {
     "draftAndPublish": true
@@ -14,7 +13,8 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true
     }
   }
 }

@@ -1,11 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "students",
+  "collectionName": "rooms",
   "info": {
-    "singularName": "student",
-    "pluralName": "students",
-    "displayName": "Student",
-    "description": ""
+    "singularName": "room",
+    "pluralName": "rooms",
+    "displayName": "Room"
   },
   "options": {
     "draftAndPublish": true
