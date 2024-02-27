@@ -8,21 +8,29 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "teacher": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "subject": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::teacher.teacher",
-      "inversedBy": "class_rooms"
+      "relation": "oneToOne",
+      "target": "api::subject.subject"
     },
     "students": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::student.student",
-      "inversedBy": "class_rooms"
+      "relation": "oneToMany",
+      "target": "api::student.student"
+    },
+    "teachers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teacher.teacher"
     }
   }
 }

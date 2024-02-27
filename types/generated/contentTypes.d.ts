@@ -790,21 +790,28 @@ export interface ApiClassRoomClassRoom extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
-    teacher: Attribute.Relation<
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    subject: Attribute.Relation<
       'api::class-room.class-room',
-      'manyToOne',
-      'api::teacher.teacher'
+      'oneToOne',
+      'api::subject.subject'
     >;
     students: Attribute.Relation<
       'api::class-room.class-room',
-      'manyToMany',
+      'oneToMany',
       'api::student.student'
+    >;
+    teachers: Attribute.Relation<
+      'api::class-room.class-room',
+      'oneToMany',
+      'api::teacher.teacher'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::class-room.class-room',
       'oneToOne',
@@ -826,12 +833,28 @@ export interface ApiRoomRoom extends Schema.CollectionType {
     singularName: 'room';
     pluralName: 'rooms';
     displayName: 'Room';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
+    students: Attribute.Relation<
+      'api::room.room',
+      'oneToMany',
+      'api::student.student'
+    >;
+    teachers: Attribute.Relation<
+      'api::room.room',
+      'oneToMany',
+      'api::teacher.teacher'
+    >;
+    subjects: Attribute.Relation<
+      'api::room.room',
+      'oneToMany',
+      'api::subject.subject'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -855,10 +878,20 @@ export interface ApiStudentStudent extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    class_rooms: Attribute.Relation<
+    subjects: Attribute.Relation<
       'api::student.student',
-      'manyToMany',
-      'api::class-room.class-room'
+      'oneToMany',
+      'api::subject.subject'
+    >;
+    teachers: Attribute.Relation<
+      'api::student.student',
+      'oneToMany',
+      'api::teacher.teacher'
+    >;
+    rooms: Attribute.Relation<
+      'api::student.student',
+      'oneToMany',
+      'api::room.room'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -884,12 +917,28 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     singularName: 'subject';
     pluralName: 'subjects';
     displayName: 'Subject';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    name: Attribute.String & Attribute.Required;
+    room: Attribute.Relation<
+      'api::subject.subject',
+      'oneToOne',
+      'api::room.room'
+    >;
+    students: Attribute.Relation<
+      'api::subject.subject',
+      'oneToMany',
+      'api::student.student'
+    >;
+    teacher: Attribute.Relation<
+      'api::subject.subject',
+      'oneToOne',
+      'api::teacher.teacher'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -921,10 +970,20 @@ export interface ApiTeacherTeacher extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    class_rooms: Attribute.Relation<
+    students: Attribute.Relation<
       'api::teacher.teacher',
       'oneToMany',
-      'api::class-room.class-room'
+      'api::student.student'
+    >;
+    rooms: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::room.room'
+    >;
+    subjects: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::subject.subject'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

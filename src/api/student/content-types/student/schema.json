@@ -16,11 +16,20 @@
       "type": "string",
       "required": true
     },
-    "class_rooms": {
+    "subjects": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::class-room.class-room",
-      "mappedBy": "students"
+      "relation": "oneToMany",
+      "target": "api::subject.subject"
+    },
+    "teachers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teacher.teacher"
+    },
+    "rooms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::room.room"
     }
   }
 }
