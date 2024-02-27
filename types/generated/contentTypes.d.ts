@@ -893,6 +893,12 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       'oneToMany',
       'api::room.room'
     >;
+    mobile: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+        maxLength: 10;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
