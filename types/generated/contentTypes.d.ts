@@ -855,6 +855,7 @@ export interface ApiRoomRoom extends Schema.CollectionType {
       'oneToMany',
       'api::subject.subject'
     >;
+    school_building: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -945,6 +946,7 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       'oneToOne',
       'api::teacher.teacher'
     >;
+    subject_code: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -991,6 +993,7 @@ export interface ApiTeacherTeacher extends Schema.CollectionType {
       'oneToMany',
       'api::subject.subject'
     >;
+    department: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

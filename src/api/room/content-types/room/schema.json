@@ -30,6 +30,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::subject.subject"
+    },
+    "school_building": {
+      "type": "string"
     }
   }
 }
