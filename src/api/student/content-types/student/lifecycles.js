@@ -2,14 +2,14 @@ const crypto = require("crypto");
 const md5 = require("md5");
 
 const algorithm = "aes-256-cbc";
-const key = Buffer.from(process.env.SECRET_KEY); // Should be a 32-byte key for aes-256
-const iv = process.env.SECRET_KEY_IV; // Should be a 16-byte IV for aes-256-cbc
+const key = Buffer.from(process.env.SECRET_KEY);
+const iv = process.env.SECRET_KEY_IV;
 
 const encryptmobile = (mobile) => {
   const cipher = crypto.createCipheriv(algorithm, key, iv);
   let encryptedmobile = cipher.update(mobile, "utf8", "hex");
   encryptedmobile += cipher.final("hex");
-  // Pad the encrypted phone number to ensure it's at least 128 characters long
+
   encryptedmobile = padToLength(encryptedmobile, 128);
 
   return encryptedmobile;
@@ -24,7 +24,6 @@ const decryptmobile = (encryptedmobile) => {
   return mobile;
 };
 
-// Custom padding function to ensure fixed length
 const padToLength = (string, length) => {
   if (string.length >= length) return string; // No need to pad
   const paddingLength = length - string.length;
@@ -32,13 +31,12 @@ const padToLength = (string, length) => {
   return string + padding;
 };
 
-// Custom function to remove padding
 const removePadding = (string) => {
-  const paddingLength = 32; // Number of characters to remove
+  const paddingLength = 32;
   if (string.length > paddingLength) {
-    return string.slice(0, paddingLength); // Remove trailing characters
+    return string.slice(0, paddingLength);
   } else {
-    return string; // No padding to remove
+    return string;
   }
 };
 
